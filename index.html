@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bloom — A Little Beautiful Thing</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffafc;
+      color: #3d3540;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #b56b83;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #5d4d57;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #c77d96;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 25px 60px;
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 20%, #f8dce7 0%, transparent 28%),
+        radial-gradient(circle at 80% 70%, #e6def8 0%, transparent 30%),
+        #fffafc;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .small-text {
+      color: #b56b83;
+      letter-spacing: 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(45px, 10vw, 90px);
+      line-height: 0.95;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #9d526d, #c889a0, #8e79ae);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #766a72;
+      max-width: 560px;
+      margin: auto;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 28px;
+      background: #b56b83;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: 0.3s;
+      box-shadow: 0 10px 25px rgba(181,107,131,0.25);
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+      background: #9d526d;
+    }
+
+    /* DECORATIONS */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.5;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .circle.one {
+      width: 80px;
+      height: 80px;
+      background: #f2b8cd;
+      top: 20%;
+      left: 8%;
+    }
+
+    .circle.two {
+      width: 55px;
+      height: 55px;
+      background: #c9b9e8;
+      bottom: 18%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    /* ABOUT */
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title span {
+      color: #b56b83;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      margin-top: 10px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 35px 25px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(80,50,70,0.07);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(80,50,70,0.12);
+    }
+
+    .icon {
+      font-size: 38px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #81757c;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* QUOTE */
+    .quote {
+      background: linear-gradient(135deg, #f8e4ec, #eee8f8);
+      text-align: center;
+      border-radius: 35px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 70px 30px;
+    }
+
+    .quote p {
+      font-size: clamp(22px, 4vw, 35px);
+      line-height: 1.5;
+      font-style: italic;
+      color: #665561;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 20px;
+      color: #987b89;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      color: #998b93;
+      font-size: 13px;
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* HP */
+    @media (max-width: 700px) {
+
+      nav {
+        padding: 16px 6%;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 70px 6%;
+      }
+
+      .section-title h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">bloom.</div>
+
+    <div>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#quote">Quote</a>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+
+    <div class="hero-content">
+
+      <div class="small-text">
+        welcome to my little space
+      </div>
+
+      <h1>Bloom<br>Slowly.</h1>
+
+      <p>
+        Tidak semua hal harus berjalan cepat.
+        Beberapa hal memang membutuhkan waktu
+        untuk tumbuh menjadi sesuatu yang indah.
+      </p>
+
+      <a href="#about" class="button">
+        Explore ✦
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+
+    <div class="section-title">
+      <span>a little reminder</span>
+      <h2>Things worth keeping</h2>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">🌷</div>
+        <h3>Grow</h3>
+        <p>
+          Tumbuh sedikit demi sedikit juga tetap
+          termasuk perkembangan.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">☁️</div>
+        <h3>Rest</h3>
+        <p>
+          Beristirahat bukan berarti menyerah.
+          Kamu juga butuh waktu untuk bernapas.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">✨</div>
+        <h3>Dream</h3>
+        <p>
+          Simpan mimpi-mimpi kecilmu.
+          Siapa tahu suatu hari menjadi nyata.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUOTE -->
+  <section id="quote">
+
+    <div class="quote">
+
+      <p>
+        “You don't have to have everything
+        figured out right now.”
+      </p>
+
+      <small>— just keep going ✦</small>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    made with ♡ and a little bit of code
+  </footer>
+
+
+  <script>
+
+    // Efek saat halaman di-scroll
+    const cards = document.querySelectorAll(".card");
+
+    window.addEventListener("scroll", () => {
+
+      cards.forEach(card => {
+
+        const position = card.getBoundingClientRect().top;
+        const screen = window.innerHeight;
+
+        if (position < screen - 80) {
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+                              </html>
